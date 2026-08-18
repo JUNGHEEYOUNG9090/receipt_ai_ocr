@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python
 __pycache__/
 *.py[cod]
@@ -21,3 +22,9 @@ uploads/
 # OS
 .DS_Store
 Thumbs.db
+=======
+.venv/
+__pycache__/
+*.pyc
+.env
+>>>>>>> a4f4494d82dfd3fddb1b849447b9cc8ef6052d78
