@@ -3,7 +3,6 @@ from typing import Annotated
 from fastapi import FastAPI, UploadFile, File
 
 from app.ocr import run_ocr
-from app.llm import extract_receipt_data
 
 import shutil
 import os
@@ -62,31 +61,16 @@ async def ocr(
         print("\n[OCR 결과]")
         print(ocr_text)
 
-        # LLM
-        print("\n4. LLM 추론 시작")
-
-        llm_start = time.perf_counter()
-
-        receipt_data = extract_receipt_data(ocr_text)
-
-        llm_time = time.perf_counter() - llm_start
-
-        print(f"5. LLM 추론 완료 : {llm_time:.3f}초")
-
-        print("\n[LLM 결과]")
-        print(receipt_data)
-
         results.append({
             "filename": file.filename,
             "upload_time": round(upload_time, 3),
             "ocr_time": round(ocr_time, 3),
-            "llm_time": round(llm_time, 3),
-            "receipt": receipt_data
+            "ocr_text": ocr_text
         })
 
     total_time = time.perf_counter() - total_start
 
-    print(f"\n6. 전체 처리 완료 : {total_time:.3f}초")
+    print(f"\n4. 전체 처리 완료 : {total_time:.3f}초")
     print("=========== OCR END ===========\n")
 
     return {
